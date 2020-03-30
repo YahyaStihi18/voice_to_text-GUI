@@ -6,7 +6,7 @@ from PIL import Image, ImageTk
 import winsound
 
 r = sr.Recognizer()
-
+# This function takes audio input and return it as a text and save it in file.txt
 def record_audio():
     with sr.Microphone() as source:
         audio = r.listen(source)
@@ -24,14 +24,14 @@ def record_audio():
         threading.Timer(10, show_file).start()
         return voice_data
 
-
+# clear text inside ykinter window
 def clear():
     file = open('support/file.txt', "w")
     file.write('')
     file.close()
     entry.delete(1.0, tk.END)
 
-
+#show data inside the file.txt 
 def show_file():
 
     entry.delete(1.0, tk.END)
@@ -40,7 +40,7 @@ def show_file():
     entry.insert(tk.END, contents)
     file_r.close()
 
-
+# show data inside support.txt in tkinter window
 def support():
     entry.delete(1.0, tk.END)
     file_s = open("support/support.txt", "r", encoding='utf-8')
@@ -49,7 +49,7 @@ def support():
     file_s.close()
     winsound.PlaySound("windows.wav", winsound.SND_ASYNC)
 
-
+# satrt the GUI
 root = tk.Tk()
 root.title('voice to text')
 
@@ -67,7 +67,7 @@ frame.place(relx= 0.41, rely=0.08, relwidth=0.76, relheight=0.86, anchor='n')
 entry = tk.Text(frame,font=("jameel noori nastaleeq",14))
 entry.place(relx=0, rely=0, relwidth=1, relheight=1)
 show_file()
-
+# copy data inside file.txt to clipboard
 def copy():
     file_c = open("support/file.txt", "r", encoding="utf-8")
     contents = file_c.read()
@@ -75,7 +75,7 @@ def copy():
     file_c.close()
 
 
-#==============================================================================
+#============== frame's==========================================================
 frame1 = tk.Frame(root, bg='#3498DB', bd=3)
 frame1.place(relx= 0.81, rely=0.08, relwidth=0.17, relheight=0.09)
 micro_i = ImageTk.PhotoImage(Image.open('image/micro.png'))
@@ -97,7 +97,7 @@ support_i = ImageTk.PhotoImage(Image.open('image/support.png'))
 panel4 = tk.Label(frame4, image=support_i).place(x=1, y=1)
 
 
-#=========================================================================================
+#============= buttons =======================================================================
 
 button1 = tk.Button(frame1, bg='#CACFD2', text='تسجيل', font=('bold', 14), command=record_audio)
 button1.place(relx=0.3, rely=0, relwidth=0.7, relheight=1)
@@ -110,5 +110,5 @@ button3.place(relx=0.3, rely=0, relwidth=0.7, relheight=1)
 
 button4 = tk.Button(frame4, bg='#CACFD2', text='التعليمات', font=('bold',14), command=support)
 button4.place(relx=0.3, rely=0, relwidth=0.7, relheight=1)
-
+# run the GUI
 root.mainloop()
